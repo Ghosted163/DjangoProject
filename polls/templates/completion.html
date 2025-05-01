@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArtSpace – Order Complete</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+<body>
+  <header>
+    <nav>
+      <h1 class="logo">Ghosted Designs</h1>
+      <ul>
+        <li><a href="{% url 'polls:index' %}">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="completion-container">
+    <div class="checkmark">✔</div>
+    <h2>Thank you for your purchase!</h2>
+    <p>Your download links will arrive shortly at the email you provided.</p>
+    <a class="return-home" href="{% url 'polls:index' %}">Return Home</a>
+  </main>
+
+  <footer>
+    <p>© 2023 ArtSpace. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+

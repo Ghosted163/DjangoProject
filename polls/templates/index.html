@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ArtSpace – Home</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <header>
+    <nav>
+      <h1 class="logo">Ghosted Designs</h1>
+      <ul>
+        <li><a href="{% url 'polls:index' %}">Home</a></li>
+        <li><a href="{% url 'polls:checkout' %}">Checkout (<span id="cart-count">0</span>)</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Welcome to My Digital Art Gallery</h2>
+    <p>Discover unique digital creations available for instant download</p>
+  </section>
+
+  <main class="art-grid">
+    <div class="art-card">
+      <img src="{% static 'images/background.JPG' %}" alt="Blush Lake Dusk">
+      <h3>Blush Lake Dusk</h3>
+      <p>3000×3000 | JPG</p>
+      <p class="price">$29.99</p>
+      <button class="buy-btn" data-id="background" data-file="background.JPG" data-price="29.99">Add to Cart</button>
+    </div>
+
+    <div class="art-card">
+      <img src="{% static 'images/cookie.JPG' %}" alt="Crumbs of Comfort">
+      <h3>Crumbs of Comfort</h3>
+      <p>2160×3840 | JPG</p>
+      <p class="price">$14.99</p>
+      <button class="buy-btn" data-id="cookie" data-file="cookie.JPG" data-price="14.99">Add to Cart</button>
+    </div>
+
+    <div class="art-card">
+      <img src="{% static 'images/cup.JPG' %}" alt="First Sip Inspiration">
+      <h3>First Sip Inspiration</h3>
+      <p>2500×2500 | JPG</p>
+      <p class="price">$19.99</p>
+      <button class="buy-btn" data-id="cup" data-file="cup.JPG" data-price="19.99">Add to Cart</button>
+    </div>
+
+    <div class="art-card">
+      <img src="{% static 'images/mirror.JPG' %}" alt="Blind Reflection">
+      <h3>Blind Reflection</h3>
+      <p>3000×3000 | JPG</p>
+      <p class="price">$24.99</p>
+      <button class="buy-btn" data-id="mirror" data-file="mirror.JPG" data-price="24.99">Add to Cart</button>
+    </div>
+
+    <div class="art-card">
+      <img src="{% static 'images/rain.JPG' %}" alt="Violet Drifter">
+      <h3>Violet Drifter</h3>
+      <p>2480×3508 | JPG</p>
+      <p class="price">$39.99</p>
+      <button class="buy-btn" data-id="rain" data-file="rain.JPG" data-price="39.99">Add to Cart</button>
+    </div>
+
+    <div class="art-card">
+      <img src="{% static 'images/sky1.JPG' %}" alt="Midnight Nomad">
+      <h3>Midnight Nomad</h3>
+      <p>4096×2304 | JPG</p>
+      <p class="price">$34.99</p>
+      <button class="buy-btn" data-id="sky1" data-file="sky1.JPG" data-price="34.99">Add to Cart</button>
+    </div>
+
+    <div class="art-card">
+      <img src="{% static 'images/sky3.JPG' %}" alt="Starlit Reunion">
+      <h3>Starlit Reunion</h3>
+      <p>4096×2304 | JPG</p>
+      <p class="price">$44.99</p>
+      <button class="buy-btn" data-id="sky3" data-file="sky3.JPG" data-price="44.99">Add to Cart</button>
+    </div>
+
+    <div class="art-card">
+      <img src="{% static 'images/sky4.JPG' %}" alt="Ember Sentinel">
+      <h3>Ember Sentinel</h3>
+      <p>4096×2304 | JPG</p>
+      <p class="price">$44.99</p>
+      <button class="buy-btn" data-id="sky4" data-file="sky4.JPG" data-price="44.99">Add to Cart</button>
+    </div>
+
+    <div class="art-card">
+      <img src="{% static 'images/sky5.JPG' %}" alt="Key of Night">
+      <h3>Key of Night</h3>
+      <p>4096×2304 | JPG</p>
+      <p class="price">$34.99</p>
+      <button class="buy-btn" data-id="sky5" data-file="sky5.JPG" data-price="34.99">Add to Cart</button>
+    </div>
+
+    <div class="art-card">
+      <img src="{% static 'images/sky7.JPG' %}" alt="Obsidian Oracle">
+      <h3>Obsidian Oracle</h3>
+      <p>4096×2304 | JPG</p>
+      <p class="price">$34.99</p>
+      <button class="buy-btn" data-id="sky7" data-file="sky7.JPG" data-price="34.99">Add to Cart</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2023 ArtSpace. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const cartKey = 'artspace-cart';
+    const getCart = () => JSON.parse(localStorage.getItem(cartKey) || '[]');
+    const setCart = items => localStorage.setItem(cartKey, JSON.stringify(items));
+    const count = document.getElementById('cart-count');
+    const buttons = document.querySelectorAll('.buy-btn');
+
+    function sync() {
+      const ids = getCart().map(i => i.id);
+      buttons.forEach(b => {
+        if (ids.includes(b.dataset.id)) {
+          b.textContent = 'Added ✔';
+          b.disabled = true;
+        }
+      });
+      count.textContent = ids.length;
+    }
+
+    document.body.addEventListener('click', e => {
+      if (!e.target.matches('.buy-btn')) return;
+      const b = e.target;
+      const cart = getCart();
+      cart.push({ id: b.dataset.id, file: b.dataset.file, price: parseFloat(b.dataset.price) });
+      setCart(cart);
+      sync();
+    });
+
+    sync();
+  </script>
+</body>
+</html>
+
+
+

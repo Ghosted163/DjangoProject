@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArtSpace – Checkout</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+<body>
+  <header>
+    <nav>
+      <h1 class="logo">Ghosted Designs</h1>
+      <ul>
+        <li><a href="{% url 'polls:index' %}">Home</a></li>
+        <li><a href="{% url 'polls:checkout' %}">Checkout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="checkout-main">
+    <h2 style="text-align:center; margin-bottom:1rem;">Your Cart</h2>
+    <div id="cart-items"></div>
+
+    <form class="checkout-form" id="billing-form">
+      <h3 style="margin-bottom:1.5rem;">Billing Details</h3>
+      <div class="form-group">
+        <label>Name</label>
+        <input required />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" required />
+      </div>
+      <div class="row">
+        <div class="form-group" style="flex:2;">
+          <label>Card Number</label>
+          <input required />
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label>CVV</label>
+          <input required />
+        </div>
+      </div>
+      <button class="checkout-btn" type="submit">Place Order</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>© 2023 ArtSpace. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const cartKey = 'artspace-cart';
+    const getCart = () => JSON.parse(localStorage.getItem(cartKey) || '[]');
+    const setCart = items => localStorage.setItem(cartKey, JSON.stringify(items));
+    const staticImageBase = "{% static 'images/' %}";
+
+    const cartContainer = document.getElementById('cart-items');
+    const cart = getCart();
+
+    if (!cart.length) {
+      cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+      document.getElementById('billing-form').style.display = 'none';
+    } else {
+      renderCart();
+    }
+
+    function renderCart() {
+      cartContainer.innerHTML = cart.map((item, idx) => `
+        <div style="display:flex; align-items:center; margin-bottom:1rem;">
+          <img src="${staticImageBase}${item.file}" 
+               alt="" 
+               style="width:60px; height:60px; object-fit:cover; border-radius:8px; margin-right:1rem;">
+          <div style="flex:1;">
+            <strong>${item.file}</strong><br>
+            <small>$${item.price.toFixed(2)}</small>
+          </div>
+          <button data-idx="${idx}" 
+                  style="border:none; background:none; color:#e74c3c; font-size:1.2rem; cursor:pointer;">
+            &times;
+          </button>
+        </div>
+      `).join('') + `
+        <p style="text-align:right; font-weight:bold; font-size:1.2rem;">
+          Total: $${cart.reduce((t,i)=>t+i.price,0).toFixed(2)}
+        </p>`;
+    }
+
+    cartContainer.addEventListener('click', e => {
+      if (!e.target.dataset.idx) return;
+      cart.splice(e.target.dataset.idx, 1);
+      setCart(cart);
+      if (cart.length) renderCart();
+      else location.reload();
+    });
+
+    document.getElementById('billing-form').addEventListener('submit', e => {
+      e.preventDefault();
+      setCart([]);  // clear cart
+      window.location = "{% url 'polls:completion' %}";
+    });
+  </script>
+</body>
+</html>
+
