@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-ty=s&v5rc^m!9_soymxb9xzx+#($_5odabes_d@nb7vtw#&@%)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '18.223.14.108', 
+    'localhost',       
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -116,8 +120,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [ BASE_DIR / 'polls' / 'static' ]
+# URL prefix for static files
+STATIC_URL = '/static/'
+
+# Where `collectstatic` will gather all static into
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# During development, also look here for app-level static
+STATICFILES_DIRS = [
+    BASE_DIR / 'polls' / 'static'
+]
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
