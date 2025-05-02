@@ -118,17 +118,14 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-# URL prefix for static files
 STATIC_URL = '/static/'
 
-# Where `collectstatic` will gather all static into
+# 1) Where `collectstatic` will gather all static into:
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# During development, also look here for app-level static
+# 2) During development also look here for app-level static/ assets
 STATICFILES_DIRS = [
-    BASE_DIR / 'polls' / 'static'
+    BASE_DIR / 'polls' / 'static',
 ]
 
 
