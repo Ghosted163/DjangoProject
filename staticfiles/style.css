@@ -1,0 +1,287 @@
+
+:root {
+    --primary-color: #6c5ce7;
+    --primary-hover: #5b4bc4;
+    --secondary-color: #a8a5e6;
+    --background: #f8f9fa;
+    --text-color: #2d3436;
+    --card-radius: 15px;
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 5px 20px rgba(0, 0, 0, 0.10);
+    --transition: 0.3s ease;
+    --max-width: 1200px;
+    --font-stack: 'Segoe UI', sans-serif;
+}
+
+/* -----------------
+   Base / Reset
+------------------*/
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-stack);
+    background: linear-gradient(135deg, var(--background) 0%, #ffffff 100%);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* -----------------
+   Header / Nav
+------------------*/
+header {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(6px);
+}
+
+nav {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1rem 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: inline-block;
+    padding: 0.45rem 1.1rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--primary-color);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+}
+.logo:hover,
+.logo:focus {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color var(--transition);
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+/* -----------------
+   Hero Section
+------------------*/
+.hero {
+    text-align: center;
+    padding: 4rem 1rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    margin-bottom: 3rem;
+}
+
+.hero h2 {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    margin-bottom: 0.75rem;
+}
+
+.hero p {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    opacity: 0.9;
+}
+
+/* -----------------
+   Gallery Grid
+------------------*/
+.art-grid {
+    max-width: var(--max-width);
+    margin: 0 auto 4rem;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.art-card {
+    background: #fff;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.art-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.art-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+.art-card h3 {
+    padding: 1rem 1rem 0.25rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.art-card p {
+    padding: 0 1rem;
+}
+
+.price {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    padding: 0.5rem 1rem 1rem;
+}
+
+.buy-btn {
+    margin: 0 1rem 1.25rem;
+    padding: 0.9rem 0;
+    width: calc(100% - 2rem);
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background var(--transition);
+}
+.buy-btn:hover {
+    background: var(--primary-hover);
+}
+
+/* -----------------
+   Checkout Page
+------------------*/
+.checkout-main {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+.checkout-form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-lg);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.checkout-btn {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background var(--transition);
+}
+.checkout-btn:hover {
+    background: var(--primary-hover);
+}
+
+/* -----------------
+   Completion Page
+------------------*/
+.completion-container {
+    text-align: center;
+    padding: 5rem 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.checkmark {
+    font-size: 5rem;
+    color: #4BB543;
+    margin-bottom: 2rem;
+}
+
+.return-home {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 8px;
+    transition: background var(--transition);
+}
+.return-home:hover {
+    background: var(--primary-hover);
+}
+
+/* -----------------
+   Footer
+------------------*/
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* -----------------
+   Responsive Tweaks
+------------------*/
+@media (max-width: 480px) {
+    nav ul {
+        gap: 1rem;
+    }
+
+    .hero {
+        padding: 3rem 1rem;
+    }
+
+    .art-card img {
+        height: 200px;
+    }
+}
